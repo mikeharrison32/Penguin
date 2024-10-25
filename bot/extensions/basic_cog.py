@@ -18,6 +18,10 @@ class BasicCog(Cog):
     async def echo(self, interaction: discord.Interaction, message: str):
         await interaction.response.send_message(message)
 
+    @app_commands.command(name="ptp")
+    async def ptp(self, interaction: discord.Interaction, message: str):
+        await interaction.response.send_message(message)
+
     @commands.command(name="invites")
     async def get_active_invites(self, ctx: Context):
         invites = ctx.guild.invites()

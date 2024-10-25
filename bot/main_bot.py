@@ -7,6 +7,7 @@ from loguru import logger
 
 
 SERVER_ID = 1297835078399033354
+MIKE_ID = 1216358765926809742
 
 class MainBot(Bot):
 
@@ -57,7 +58,7 @@ class MainBot(Bot):
             return
 
         if isinstance(message.channel, discord.DMChannel) or self.user.mentioned_in(message) or (message.reference and message.reference.resolved and message.reference.resolved.author == self.user):
-            if message.author.id == 1216358765926809742: 
+            if message.author.id == MIKE_ID: 
                 guild = self.get_guild(SERVER_ID)
                 channel_name = get_channel_name(message.content)
                 channel = discord.utils.get(guild.channels, name=channel_name)

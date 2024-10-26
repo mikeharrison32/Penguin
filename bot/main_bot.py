@@ -14,7 +14,7 @@ class MainBot(Bot):
     def __init__(self):
         self.config = config
         super().__init__(
-            command_prefix='!',
+            command_prefix='?',
             description=self.config.description,
             intents=Intents.all(),
         )
@@ -51,7 +51,7 @@ class MainBot(Bot):
         channel = discord.utils.get(member.guild.channels, name=welcome_channel_name)
 
         if channel:
-            await channel.send(f'Welcome to da server, {member.mention}!')
+            await channel.send(f'welcome {member.mention}!')
 
     async def on_message(self, message):
         if message.author == self.user:

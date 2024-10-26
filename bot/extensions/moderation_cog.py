@@ -7,6 +7,7 @@ from discord.ext import commands
 class ModerationCog(Cog):
     def __init__(self, bot):
         self.bot = bot
+        self.user_warnings = {}
 
     @commands.has_permissions(kick_members=True)
     async def kick(self, ctx, member: discord.Member, *, reason=None):
@@ -18,6 +19,43 @@ class ModerationCog(Cog):
         await member.ban(reason=reason)
         await ctx.send(f'Banned {member.mention} for {reason}')
 
+    @commands.command(name='warn', description='Warns a member')
+    @commands.has_permissions(kick_members=True)
+    async def warn(self, ctx, member: discord.Member, *, reason=None):
+        guild_id = ctx.guild.id
+        user_id = member.id
+
+        # # Initialize warnings for the guild if not already present
+        if guild_id not in self.user_warnings:
+            self.user_warnings[guild_id] = {}
+
+        # Initialize warnings for the user if not already present
+        if user_id not in self.user_warnings[guild_id]:
+            self.user_warnings[guild_id][user_id] = []
+
+        # Add the warning
+        self.user_warnings[guild_id][user_id].append(reason or "No reason provided")
+
+        # Send feedback message
+        warning_count = len(self.user_warnings[guild_id][user_id])
+        await ctx.send(f'{member.mention} has been warned for {reason or "no reason provided"}. They now have {warning_count} warning(s).')
+   
+    @commands.command(name='warnings', description='Lists all warnings for a member')
+    @commands.has_permissions(kick_members=True)
+    async def warnings(self, ctx, member: discord.Member):
+        """Check the number of warnings for a member."""
+        guild_id = ctx.guild.id
+        user_id = member.id
+
+        # Fetch warnings, or indicate if there are none
+        user_warnings = self.user_warnings.get(guild_id, {}).get(user_id, [])
+        if user_warnings:
+            warnings_text = "\n".join([f"{idx+1}. {warn}" for idx, warn in enumerate(user_warnings)])
+            await ctx.send(f'{member.mention} has the following warnings:\n{warnings_text}')
+        else:
+            await ctx.send(f'{member.mention} has no warnings.')
+
+    @commands.command(name="mute")
     @commands.has_permissions(manage_roles=True)
     async def mute(self, ctx, member: discord.Member, *, reason=None):
         guild = ctx.guild

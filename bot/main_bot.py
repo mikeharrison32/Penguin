@@ -32,6 +32,7 @@ class MainBot(Bot):
             'bot.extensions.moderation_cog',
             'bot.extensions.fun_cog',
             'bot.extensions.leveling_cog',
+            'bot.extensions.vent_cog',
         ]
 
         for extension in initial_extensions:

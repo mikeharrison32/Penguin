@@ -1,7 +1,7 @@
 from bot.main_bot import MainBot
 import os
 from dotenv import load_dotenv
-from flask import Flask
+from flask import Flask, render_template
 import threading
 import os
 from discord.ext import commands
@@ -15,6 +15,16 @@ app = Flask(__name__)
 @app.route('/')
 def home():
     return "I'm alive!"
+
+@app.route('/tos')
+def tos():
+    return render_template('website/tos.html')
+
+@app.route('/privacy-policy')
+def privacy_policy():
+    return render_template('website/privacy-policy.html')
+
+
 
 def run():
     app.run(host='0.0.0.0', port=os.getenv("PORT", 5000))

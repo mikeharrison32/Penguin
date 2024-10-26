@@ -51,7 +51,7 @@ class LevelingCog(Cog):
     async def on_message(self, message):
         if message.author.bot:
             return
-
+                                                                                                                                                                
         xp_gained = random.randint(5, 15)
         leveled_up = self.add_xp(message.author.id, message.guild.id, xp_gained)
 

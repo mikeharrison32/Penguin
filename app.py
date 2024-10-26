@@ -14,7 +14,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def home():
-    return "I'm alive!"
+    return render_template('website/home.html')
 
 @app.route('/tos')
 def tos():

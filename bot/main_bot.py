@@ -30,6 +30,7 @@ class MainBot(Bot):
             'bot.extensions.basic_cog',
             'bot.extensions.casino_game_cog',
             'bot.extensions.moderation_cog',
+            'bot.extensions.fun_cog',
         ]
 
         for extension in initial_extensions:

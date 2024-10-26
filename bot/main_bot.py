@@ -47,7 +47,7 @@ class MainBot(Bot):
     async def on_ready(self):
         print(f'Logged in as {self.user.name} ({self.user.id})')
         # Setting a custom status
-        activity = discord.Game("helping with everything 🐧")
+        activity = discord.Game("helping with everything 🐧.")
         await self.change_presence(status=discord.Status.online, activity=activity)
         await self.tree.sync() 
         

@@ -7,6 +7,9 @@ class FunCog(Cog):
     def __init__(self, bot):
         self.bot = bot
 
+
+
+
     @commands.command(name="hug", description="Give someone a hug!")
     async def hug(self, ctx, member: discord.Member):
         hugs = [
@@ -43,6 +46,32 @@ class FunCog(Cog):
         ]
         await ctx.send(f"{ctx.author.mention} kills {member.mention}... in the worst way possible! ☠️ \n  {random.choice(kills)}")
 
-# Add this cog to your bot setup
+    @commands.command(name='ship')
+    async def ship(self, ctx, user1: discord.Member, user2: discord.Member):
+        compatibility_score = random.randint(0, 100)
+        
+        hearts = "❤️" * (compatibility_score // 10)
+        empty_hearts = "♡" * (10 - (compatibility_score // 10))
+        
+        embed = discord.Embed(
+            title="💘 Ship Compatibility 💘",
+            description=f"**{user1.mention}** and **{user2.mention}** are {compatibility_score}% compatible!",
+            color=discord.Color.pink()
+        )
+        
+        embed.add_field(name="Love Meter", value=f"{hearts}{empty_hearts}", inline=False)
+        
+        if compatibility_score > 80:
+            embed.set_footer(text="A match made in heaven! 💞")
+        elif compatibility_score > 50:
+            embed.set_footer(text="There's some chemistry here! 💫")
+        elif compatibility_score > 30:
+            embed.set_footer(text="Could work with some effort! 😅")
+        else:
+            embed.set_footer(text="Hmm... maybe just friends? 👀")
+
+        await ctx.send(embed=embed)
+
+
 async def setup(bot):
     await bot.add_cog(FunCog(bot))

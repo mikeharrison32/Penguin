@@ -23,7 +23,29 @@ class VentCog(commands.Cog):
     async def vent(self, interaction: discord.Interaction, message: str):
         guild = self.bot.get_guild(SERVER_ID)  
         vent_channel = guild.get_channel(self.vent_channel_id)
-        colors = [0xff5733, 0x33ff57, 0x3357ff, 0xff33a1, 0xffae33]
+        colors = [
+            0xff5733,  # Bright Orange
+            0x33ff57,  # Lime Green
+            0x3357ff,  # Bright Blue
+            0xff33a1,  # Hot Pink
+            0xffae33,  # Light Orange
+            0x8e44ad,  # Purple
+            0x3498db,  # Light Blue
+            0xe74c3c,  # Coral Red
+            0x2ecc71,  # Emerald Green
+            0xf39c12,  # Sunflower Yellow
+            0xd35400,  # Pumpkin Orange
+            0x1abc9c,  # Turquoise
+            0xc0392b,  # Red
+            0x9b59b6,  # Amethyst
+            0x16a085,  # Greenish Teal
+            0x2980b9,  # Strong Blue
+            0xe67e22,  # Carrot Orange
+            0xf1c40f,  # Bright Yellow
+            0x7f8c8d,  # Neutral Gray
+            0x95a5a6,  # Lighter Gray
+        ]
+
         
         if vent_channel:
             embed = discord.Embed(

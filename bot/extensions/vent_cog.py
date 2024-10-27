@@ -2,14 +2,12 @@ import discord
 from discord.ext import commands
 from loguru import logger
 import random
-SERVER_ID = 1297835078399033354
-
+from discord.utils import get
 
 class VentCog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        self.vent_channel_id = 1299737645852921867  # Replace with your actual vent channel ID
-
+        self.vent_channel_name = "vent"  # Replace with your actual vent channel name
 
     @discord.app_commands.command()
     async def reply(self, interaction: discord.Interaction, id: int, message: str):
@@ -21,32 +19,17 @@ class VentCog(commands.Cog):
     
     @discord.app_commands.command()
     async def vent(self, interaction: discord.Interaction, message: str):
-        guild = self.bot.get_guild(SERVER_ID)  
-        vent_channel = guild.get_channel(self.vent_channel_id)
+        guild = interaction.guild  # Get the current server (guild)
+        vent_channel = get(guild.text_channels, name=self.vent_channel_name)  # Find the channel by name
+        
+        # Random color selection
         colors = [
-            0xff5733,  # Bright Orange
-            0x33ff57,  # Lime Green
-            0x3357ff,  # Bright Blue
-            0xff33a1,  # Hot Pink
-            0xffae33,  # Light Orange
-            0x8e44ad,  # Purple
-            0x3498db,  # Light Blue
-            0xe74c3c,  # Coral Red
-            0x2ecc71,  # Emerald Green
-            0xf39c12,  # Sunflower Yellow
-            0xd35400,  # Pumpkin Orange
-            0x1abc9c,  # Turquoise
-            0xc0392b,  # Red
-            0x9b59b6,  # Amethyst
-            0x16a085,  # Greenish Teal
-            0x2980b9,  # Strong Blue
-            0xe67e22,  # Carrot Orange
-            0xf1c40f,  # Bright Yellow
-            0x7f8c8d,  # Neutral Gray
-            0x95a5a6,  # Lighter Gray
+            0xff5733, 0x33ff57, 0x3357ff, 0xff33a1, 0xffae33, 
+            0x8e44ad, 0x3498db, 0xe74c3c, 0x2ecc71, 0xf39c12, 
+            0xd35400, 0x1abc9c, 0xc0392b, 0x9b59b6, 0x16a085, 
+            0x2980b9, 0xe67e22, 0xf1c40f, 0x7f8c8d, 0x95a5a6
         ]
 
-        
         if vent_channel:
             embed = discord.Embed(
                 description=message,
@@ -65,4 +48,3 @@ class VentCog(commands.Cog):
 
 async def setup(bot):
     await bot.add_cog(VentCog(bot))
-

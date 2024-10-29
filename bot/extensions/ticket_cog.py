@@ -28,6 +28,5 @@ class TicketCog(commands.Cog):
 
         await ctx.channel.delete()
 
-# Add the cog to your bot
 bot = commands.Bot(command_prefix="!")
 bot.add_cog(TicketCog(bot))

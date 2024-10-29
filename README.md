@@ -1,14 +1,8 @@
-Got it! Here's an updated README with sections for **Fun Commands** and **Moderation Commands**. This should give users a better sense of what to expect as the bot continues to evolve.
-
----
-
 # Penguin Bot
 
-**Penguin Bot** is a versatile Discord bot designed for community management, moderation, and interactive fun. Fully customizable through the [Penguin Bot Dashboard](#link-to-dashboard), this bot is ideal for server owners looking for a powerful tool that handles everything from user engagement to server moderation.
+**Penguin Bot** is a versatile Discord bot designed for community management, moderation, and interactive fun. Fully customizable through the [Penguin Bot Dashboard](#on-dev), this bot is ideal for server owners looking for a powerful tool that handles everything from user engagement to server moderation.
 
 ## Features
-
-- **Custom Bot Nickname**: Set a server-specific nickname for the bot.
 - **Command Prefix**: Customize the command prefix to match your server’s style.
 - **Welcome Message**: Automatically welcome new members in a designated channel.
 - **Vent Channel**: Allow users to vent or share thoughts anonymously.
@@ -34,8 +28,8 @@ Got it! Here's an updated README with sections for **Fun Commands** and **Modera
 1. **Clone the Repository**
 
    ```bash
-   git clone https://github.com/username/penguin-bot.git
-   cd penguin-bot
+   git clone https://github.com/mikeharrison32/penguin.git
+   cd Penguin
    ```
 
 2. **Install Dependencies**

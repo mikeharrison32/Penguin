@@ -32,12 +32,12 @@ class LevelingCog(Cog):
 
         # Calculate required XP for leveling up
         required_xp = user_data["level"] * 100
-        leveled_up = False
+        current_user_level = -1 # a default value if the user's level didn't update
 
         if user_data["xp"] >= required_xp:
             user_data["level"] += 1
             user_data["xp"] = 0
-            leveled_up = True
+            current_user_level = user_data["level"]
 
         # Update user data in MongoDB
         self.collection.update_one(
@@ -45,7 +45,7 @@ class LevelingCog(Cog):
             {"$set": {"xp": user_data["xp"], "level": user_data["level"]}}
         )
         
-        return leveled_up
+        return current_user_level
 
     @Cog.listener()
     async def on_message(self, message):
@@ -53,11 +53,12 @@ class LevelingCog(Cog):
             return
                                                                                                                                                                 
         xp_gained = random.randint(5, 15)
-        leveled_up = self.add_xp(message.author.id, message.guild.id, xp_gained)
+        current_level = self.add_xp(message.author.id, message.guild.id, xp_gained)
 
-        if leveled_up:
-            user_level = self.collection.find_one({"user_id": message.author.id, "guild_id": message.guild.id})["level"]
-            await message.channel.send(f"🎉 Congrats {message.author.mention}, you've leveled up to level {user_level}!")
+        if current_level > -1:
+            # in the old code it needed to call the database 2 times to get the current user level, this change made the database
+            # only needed to be called once
+            await message.channel.send(f"🎉 Congrats {message.author.mention}, you've leveled up to level {current_level}!")
 
     @commands.command(name="rank", description="Check your level and XP.")
     async def rank(self, ctx, member: discord.Member = None):

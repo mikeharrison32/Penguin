@@ -24,6 +24,7 @@ class ModerationCog(Cog):
     async def warn(self, ctx, member: discord.Member, *, reason=None):
         guild_id = ctx.guild.id
         user_id = member.id
+        reason = reason or "No reason provided"
 
         # # Initialize warnings for the guild if not already present
         if guild_id not in self.user_warnings:
@@ -34,11 +35,11 @@ class ModerationCog(Cog):
             self.user_warnings[guild_id][user_id] = []
 
         # Add the warning
-        self.user_warnings[guild_id][user_id].append(reason or "No reason provided")
+        self.user_warnings[guild_id][user_id].append(reason)
 
         # Send feedback message
         warning_count = len(self.user_warnings[guild_id][user_id])
-        await ctx.send(f'{member.mention} has been warned for {reason or "no reason provided"}. They now have {warning_count} warning(s).')
+        await ctx.send(f'{member.mention} has been warned for {reason}. They now have {warning_count} warning(s).')
    
     @commands.command(name='warnings', description='Lists all warnings for a member')
     @commands.has_permissions(kick_members=True)
